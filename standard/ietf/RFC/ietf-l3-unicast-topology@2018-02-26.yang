@@ -172,6 +172,21 @@ module ietf-l3-unicast-topology {
         description
           "Router-id for the node";
       }
+      leaf peer-as {
+        type oc-inet:as-number;
+        description
+          "AS number of the peer.";
+      }
+
+      leaf local-as {
+        type oc-inet:as-number;
+        description
+          "The local autonomous system number that is to be used
+          when establishing sessions with the remote peer or peer
+          group, if this differs from the global BGP router
+          autonomous system number.";
+      }
+
       list prefix {
         key "prefix";
         description
