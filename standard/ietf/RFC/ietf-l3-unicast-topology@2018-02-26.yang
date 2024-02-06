@@ -173,13 +173,13 @@ module ietf-l3-unicast-topology {
           "Router-id for the node";
       }
       leaf peer-as {
-        type oc-inet:as-number;
+        type inet:as-number;
         description
           "AS number of the peer.";
       }
 
       leaf local-as {
-        type oc-inet:as-number;
+        type inet:as-number;
         description
           "The local autonomous system number that is to be used
           when establishing sessions with the remote peer or peer
