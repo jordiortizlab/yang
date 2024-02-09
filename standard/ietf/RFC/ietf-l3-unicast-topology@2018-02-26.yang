@@ -15,6 +15,10 @@ module ietf-l3-unicast-topology {
   import ietf-routing-types {
     prefix "rt-types";
   }
+  import ietf-yang-types {
+    prefix "yang";
+  }
+
   organization
     "IETF I2RS (Interface to the Routing System) Working Group";
   contact
@@ -57,6 +61,53 @@ module ietf-l3-unicast-topology {
 
   identity flag-identity {
     description "Base type for flags";
+  }
+
+  // This snippet has been extracted from experimental ietf-l3-ospf-topology-2022-03-07.yang
+  typedef area-id-type {
+    type yang:dotted-quad;
+    description
+      "An identifier for the OSPFv2 area.";
+    reference
+         "RFC 2328: OSPF Version 2";
+  }
+
+  // This snippet has been extracted from experimental ietf-l3-ospf-topology-2022-03-07.yang
+  identity inf-type {
+    description
+      "Identity for the OSPF interface type.";
+    reference
+         "RFC 2328: OSPF Version 2";
+  }
+  identity nbma {
+    base inf-type;
+    description
+      "Identity for the NBMA interface.";
+    reference
+         "RFC 2328: OSPF Version 2";
+  }
+
+  identity p2mp {
+    base inf-type;
+    description
+      "Identity for the p2mp interface.";
+    reference
+         "RFC 2328: OSPF Version 2";
+  }
+  identity p2mp-over-lan {
+    base inf-type;
+    description
+      "Identity for the p2mp-over-lan interface.";
+    reference
+         "RFC 2328: OSPF Version 2";
+  }
+
+  identity p2p {
+    base inf-type;
+    description
+      "Identity for the p2p interface.";
+    reference
+         "RFC 2328: OSPF Version 2";
   }
 
   typedef l3-event-type {
@@ -223,6 +274,44 @@ module ietf-l3-unicast-topology {
       }
     }
   }
+  grouping ospfv2-termination-point-attributes {
+      // This snippet has been extracted from experimental ietf-l3-ospf-topology-2022-03-07.yang
+      description "OSPF termination point scope attributes";
+      container ospfv2-termination-point-attributes {
+        description
+          "Indicates the termination point OSPF configuration";
+        leaf interface-type {
+          type identityref {
+            base inf-type ;
+          }
+          description
+            "OSPF interface type.";
+          reference
+            "RFC 2328: OSPF Version 2";
+        }
+        leaf area-id {
+          type area-id-type;
+          description
+            "An identifier for the OSPFv2 area.";
+          reference
+            "RFC 2328: OSPF Version 2";
+        }
+        leaf metric {
+          type uint64;
+          description
+            "OSFP Protocol metric";
+          reference
+            "RFC 2328: OSPF Version 2";
+        }
+        leaf is-passive{
+          type boolean;
+          description
+            "Interface passive mode";
+          reference
+            "RFC 2328: OSPF Version 2";
+        }
+      }
+    }
   grouping l3-termination-point-attributes {
     description "L3 termination point scope attributes";
     container l3-termination-point-attributes {
@@ -269,6 +358,9 @@ module ietf-l3-unicast-topology {
                to uniquely reference interfaces across a network.";
             reference
               "RFC 8343: A YANG Data Model for Interface Management";
+          }
+          container ospfv2-termination-point-attributes {
+            uses ospfv2-termination-point-attributes;
           }
         }
       }
