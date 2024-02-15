@@ -110,6 +110,53 @@ module ietf-l3-unicast-topology {
          "RFC 2328: OSPF Version 2";
   }
 
+  // snippet extracted from experimental ietf-lmo-common
+  identity asset-subtype {
+    description
+      "subtype of the asset: router, switch, wireless,
+      controller, ...";
+  }
+    
+  identity transceiver {
+    base asset-subtype;
+    description
+      "Device that is both a transmitter and a receiver. Usually
+      it's in a single device.
+      This is commonly used as a modular network interface";
+  }
+
+  // End
+
+  identity QSFP-DD {
+    base transceiver;
+    description
+      " Transceiver QSFP-Double Density";
+    
+  }
+
+  identity SFP {
+    base transceiver;
+    description
+      " Transceiver SFP/SFP+/SFP28";
+    
+  }
+
+  identity UTP {
+    base transceiver;
+    description
+      "UTP standard port";
+    
+  }
+
+  identity NONE {
+    base transceiver;
+    description
+      "No transceiver plugged in";
+    
+  }
+
+  
+
   typedef l3-event-type {
     type enumeration {
       enum "add" {
@@ -358,6 +405,11 @@ module ietf-l3-unicast-topology {
                to uniquely reference interfaces across a network.";
             reference
               "RFC 8343: A YANG Data Model for Interface Management";
+          }
+          leaf transceiver-type {
+            type identityref {
+              base transceiver;
+            }
           }
           container ospfv2-termination-point-attributes {
             uses ospfv2-termination-point-attributes;
