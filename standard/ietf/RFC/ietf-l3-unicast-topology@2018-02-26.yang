@@ -374,6 +374,19 @@ module ietf-l3-unicast-topology {
               "IPv4 or IPv6 address.";
           }
         }
+        case prefix {
+          leaf-list ip-prefix {
+            type inet:ip-prefix;
+            description
+              "IPv4 or IPv6 address.";
+          }
+          leaf admin-state {
+            type boolean;
+          }
+          leaf oper-state {
+            type boolean;
+          }
+        }
         case unnumbered {
           leaf unnumbered-id {
             type uint32;
@@ -413,12 +426,6 @@ module ietf-l3-unicast-topology {
           }
           leaf transceiver-speed {
             type string;
-          }
-          leaf admin-state {
-            type boolean;
-          }
-          leaf oper-state {
-            type boolean;
           }
           container ospfv2-termination-point-attributes {
             uses ospfv2-termination-point-attributes;
