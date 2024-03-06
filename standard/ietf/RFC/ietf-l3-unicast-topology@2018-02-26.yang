@@ -411,6 +411,15 @@ module ietf-l3-unicast-topology {
               base transceiver;
             }
           }
+          leaf transceiver-speed {
+            type string;
+          }
+          leaf admin-state {
+            type boolean;
+          }
+          leaf oper-state {
+            type boolean;
+          }
           container ospfv2-termination-point-attributes {
             uses ospfv2-termination-point-attributes;
           }
