@@ -464,6 +464,18 @@ module ietf-l2-topology {
           "Defines whether lag is supported or not.
            When it is set to true, the lag is supported.";
       }
+      leaf frequency {
+        type string;
+        default "N/A";
+        description
+          "Frequency configured on the transceiver";
+      }
+      leaf grid {
+        type string;
+        default "N/A";
+        description
+          "Bandwidth configured on the transceiver";
+      }
       leaf-list member-link-tp {
         when "../lag = 'true'" {
           description
